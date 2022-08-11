@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-center">
-    <div class="bg-gradient-to-b from-white/[.10] to-transparent rounded-t-xl fixed bottom-1 text-white text-center py-3 px-3 z-10">
+    <div class="bg-gradient-to-b from-white/[.10] to-transparent rounded-t-xl fixed bottom-1 text-white text-center py-3 px-3 z-10 w-fit">
     
             <div
                 class="tabs group relative inline-flex items-center justify-center w-12 h-12 text-center rounded-full opacity-95 border border-white/50 bg-black active:scale-125 mx-3 cursor-pointer"
