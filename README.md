@@ -3,7 +3,7 @@
 <h1 align="center">SpaceX Launches</h1>
 
 <h3 align="center">
-paceX Launches is an app made for space lovers to checkup on the latest, upcoming and past SpaceX launches, rockets and company in an elegant and futuristic UI/UX.
+SpaceX Launches is an app for checking up on the latest, upcoming and past SpaceX launches, rockets and company info.
 </h3>
 
 <h3 align="center">
