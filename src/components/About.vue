@@ -1,3 +1,24 @@
+<script setup>
+import axios from 'axios'
+import { onBeforeMount, ref } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+const about = ref(null)
+
+onBeforeMount( async() => {
+    await axios.get("https://api.spacexdata.com/v4/company")
+    .then((res) => {
+        about.value = res.data
+    })
+    .catch((er) => {
+        //toggle error state
+        store.commit('error', true)
+    })
+})
+</script>
+
 <template>
     <div class="max-w-xl mx-auto md:mt-11 mb-20 px-2" v-if="about">
 
@@ -57,13 +78,13 @@
                 <i class="la la-map-marker"></i> 
                 {{about.headquarters.address}}, {{about.headquarters.city}}, {{about.headquarters.state}}.
             </div>
-            <div class="text-white/90 text-sm" v-if="about.links">
-                <div class="inline"><a :href="about.links.website" target="_blank"><i class="la la-globe"></i> {{about.links.website}}</a></div>
-                <div class="inline ml-3"><a :href="about.links.twitter" target="_blank"><i class="la la-twitter"></i> {{about.links.twitter}}</a></div>
+            <div class="flex flex-wrap justify-start text-white/90 text-sm" v-if="about.links">
+                <div class="inline mr-3"><a :href="about.links.website" target="_blank"><i class="la la-globe"></i> {{about.links.website}}</a></div>
+                <div class="inline"><a :href="about.links.twitter" target="_blank"><i class="la la-twitter"></i> {{about.links.twitter}}</a></div>
             </div>
 
             <div class="text-white/90 text-sm mt-3">App Created by <a href="https://artisticlogicmk.one" class="underline">MK (artisticlogicmk.one)</a></div>
-            <div class="text-white/90 text-sm mt-1">API data from github.com/r-spacex/SpaceX-API</div>
+            <div class="text-white/90 text-sm mt-1">API data from <a href="https://github.com/r-spacex/SpaceX-API" class="underline">github.com/r-spacex/SpaceX-API</a></div>
         </div>
 
     </div>
@@ -72,24 +93,3 @@
         <div><i class="la la-spinner la-spin text-7xl"></i></div>
     </div>
 </template>
-
-<script setup>
-import axios from 'axios'
-import { onBeforeMount, ref } from 'vue'
-import { useStore } from 'vuex'
-
-const store = useStore()
-
-const about = ref(null)
-
-onBeforeMount( async() => {
-    await axios.get("https://api.spacexdata.com/v4/company")
-    .then((res) => {
-        about.value = res.data
-    })
-    .catch((er) => {
-        //toggle error state
-        store.commit('error', true)
-    })
-})
-</script>

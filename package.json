@@ -1,6 +1,6 @@
 {
-  "name": "infinityconverter",
-  "version": "0.1.0",
+  "name": "spacex-launches",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "s": "vue-cli-service serve",

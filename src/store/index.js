@@ -115,32 +115,40 @@ export default createStore({
       latest = await axios.get("https://api.spacexdata.com/v4/launches/latest")
       
       let launchData = {
-        name:      data.name,
-        id:        data.id,
-        flight_no: data.flight_number,
-        details:   data.details,
-        date:      moment(data.date_utc).format('MMM Do, YYYY'),
-        upcoming:  data.upcoming,
-        success:   data.success,
-        failure:   data.failures,
-        images:    data.links.flickr.original.slice(0, 3),
+        info:      {
+          name:      data.name,
+          id:        data.id,
+          flight_no: data.flight_number,
+          details:   data.details,
+          date:      moment(data.date_utc).format('MMM Do, YYYY'),
+          upcoming:  data.upcoming,
+          success:   data.success,
+          failure:   data.failures,
+          images:    data.links.flickr.original.slice(0, 3)
+        },
 
         //rocket info
-        rocket_name:  data.rocket ? rocketData.data.name : null,
-        rocket_id:    data.rocket ? rocketData.data.id : null,
-        rocket_thumb: data.rocket ? rocketData.data.name.replace(' ', '_') : null,
+        rocket:    {
+          rocket_name:  data.rocket ? rocketData.data.name : null,
+          rocket_id:    data.rocket ? rocketData.data.id : null,
+          rocket_thumb: data.rocket ? rocketData.data.name.replace(' ', '_') : null
+        },
 
         //payload info
-        payload_name:        data.payloads.length !== 0 ? payloadData.data.name : null,
-        payload_id:          data.payloads.length !== 0 ? payloadData.data.id : null,
-        payload_type:        data.payloads.length !== 0 ? payloadData.data.type : null,
-        payload_customer:    data.payloads.length !== 0 ? payloadData.data.customers[0] : null,
-        payload_nationality: data.payloads.length !== 0 ? payloadData.data.nationalities[0] : null,
+        payload:    {
+          payload_name:        data.payloads.length !== 0 ? payloadData.data.name : null,
+          payload_id:          data.payloads.length !== 0 ? payloadData.data.id : null,
+          payload_type:        data.payloads.length !== 0 ? payloadData.data.type : null,
+          payload_customer:    data.payloads.length !== 0 ? payloadData.data.customers[0] : null,
+          payload_nationality: data.payloads.length !== 0 ? payloadData.data.nationalities[0] : null
+        },
 
         //links
-        article: data.links.article,
-        webcast: data.links.webcast,
-        reddit:  data.links.reddit.launch,
+        links:    {
+          article: data.links.article,
+          webcast: data.links.webcast,
+          reddit:  data.links.reddit.launch
+        },
 
         //latest and next launch select presets
         latest: latest.data.id,

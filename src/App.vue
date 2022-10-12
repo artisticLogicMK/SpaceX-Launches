@@ -1,3 +1,63 @@
+<script setup>
+import Loader from './components/Loader.vue'
+import BottomTab from './components/BottomTab.vue'
+import Launches from './components/Launches.vue'
+import Rockets from './components/Rockets.vue'
+import About from './components/About.vue'
+
+import axios from 'axios'
+import moment from 'moment'
+import { useTippy } from "vue-tippy/composition"
+import { useStore } from 'vuex'
+import { onBeforeMount, onMounted, ref } from 'vue'
+
+
+const load = ref(true)
+const store = useStore()
+
+//tooltip tippjs config
+useTippy('.targets', {
+  theme: 'custom',
+  arrow: true,
+  followCursor: false
+})
+
+
+onBeforeMount( async() => {
+  
+  await axios.get("https://api.spacexdata.com/v4/launches")
+  .then((res) => {
+    //resort by year, recent launches first
+    let sorted = res.data.sort((a,b) => b.flight_number - a.flight_number)
+
+    //get needed data from result
+    sorted.forEach(el => {
+      store.commit('pushLaunchData', {
+        id: el.id,
+        name: el.name,
+        flight_no: el.flight_number,
+        date: moment(el.date_utc).format('MMM Do, YYYY'),
+        year: Number(moment(el.date_utc).format('YYYY')),
+        month: moment(el.date_utc).format('MMM'),
+        day: moment(el.date_utc).format('DD')
+      })
+    })
+  })
+
+  //fetch latest launch data to populate in default launch data
+  await axios.get("https://api.spacexdata.com/v4/launches/latest")
+  .then((res) => {
+    store.dispatch('setLaunchView', res.data)
+  })
+
+})
+
+onMounted(() => {
+  load.value = false
+})
+
+</script>
+
 <template>
 
   <!--head-->
@@ -17,7 +77,7 @@
 
 
   <div id="tabdisplay" class="duration-500">
-    <Load v-if="$store.state.load || $store.state.activeTab == 4"/>
+    <Loader v-if="$store.state.load || $store.state.activeTab == 4"/>
 
     <Launches v-if="$store.state.activeTab == 1" />
 
@@ -43,70 +103,3 @@
   </div>
 
 </template>
-
-<script>
-import Load from './components/Load.vue'
-import BottomTab from './components/BottomTab.vue'
-import Launches from './components/Launches.vue'
-import Rockets from './components/Rockets.vue'
-import About from './components/About.vue'
-import { useTippy } from "vue-tippy/composition"
-
-import axios from 'axios'
-import moment from 'moment'
-import { useStore } from 'vuex'
-import { onBeforeMount, onMounted, ref } from 'vue'
-
-export default {
-  components: {
-    Load, Launches, BottomTab, Rockets, About
-  },
-  setup() {
-    const load = ref(true)
-    const store = useStore()
-
-    //tooltip tippjs config
-    useTippy('.targets', {
-      theme: 'custom',
-      arrow: true,
-      followCursor: false
-    })
-
-
-    onBeforeMount( async() => {
-      
-      await axios.get("https://api.spacexdata.com/v4/launches")
-      .then((res) => {
-        //resort by year, recent launches first
-        let sorted = res.data.sort((a,b) => b.flight_number - a.flight_number)
-
-        //get needed data from result
-        sorted.forEach(el => {
-          store.commit('pushLaunchData', {
-            id: el.id,
-            name: el.name,
-            flight_no: el.flight_number,
-            date: moment(el.date_utc).format('MMM Do, YYYY'),
-            year: Number(moment(el.date_utc).format('YYYY')),
-            month: moment(el.date_utc).format('MMM'),
-            day: moment(el.date_utc).format('DD')
-          })
-        })
-      })
-
-      //fetch latest launch data to populate in default launch data
-      await axios.get("https://api.spacexdata.com/v4/launches/latest")
-      .then((res) => {
-        store.dispatch('setLaunchView', res.data)
-      })
-
-    })
-
-    onMounted(() => {
-      load.value = false
-    })
-    
-    return { load }
-  }
-}
-</script>

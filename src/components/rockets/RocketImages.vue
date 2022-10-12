@@ -1,3 +1,28 @@
+<script setup>
+import { onMounted, ref } from 'vue'
+
+const props = defineProps({
+  images: Array
+})
+
+const images = ref([])
+
+//image modal toggle
+const popModal = ref(false)
+const popModalImage = ref(null)
+
+//click event on image => shows and populate clicked image in modal
+const popImage = (image) => {
+  popModalImage.value = image
+  popModal.value = true
+}
+
+onMounted(() => {
+    images.value = props.images
+})
+</script>
+
+
 <template>
   <div>
     <div class="w-fit rounded-sm bg-[url('../../../public/img/logo.svg')] bg-contain bg-center bg-no-repeat inline-block mr-2 mt-0.5 hover:-translate-y-1.5 border border-white/25"
@@ -34,32 +59,3 @@
     </div>
   </Transition>
 </template>
-
-<script>
-import { onMounted, ref } from 'vue'
-
-export default {
-
-  props: ['images'],
-
-  setup(props) {
-    const images = ref([])
-
-    //image modal toggle
-    const popModal = ref(false)
-    const popModalImage = ref(null)
-
-    //click event on image => shows and populate clicked image in modal
-    const popImage = (image) => {
-      popModalImage.value = image
-      popModal.value = true
-    }
-
-    onMounted(() => {
-        images.value = props.images
-    })
-
-    return { images, popImage, popModal, popModalImage }
-  }
-}
-</script>

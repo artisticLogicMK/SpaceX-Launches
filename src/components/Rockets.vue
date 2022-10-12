@@ -1,3 +1,72 @@
+<script setup>
+import RocketImages from './rockets/RocketImages.vue'
+
+import axios from 'axios'
+import moment from 'moment'
+import { onBeforeMount, ref } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+//state for storing rockets
+const rockets = ref([])
+
+//state for active rocket view by slection
+const activeRocket = ref({})
+
+//state for toggle rocket display/when opening another
+const toggle = ref(true)
+
+//state for toggle show rocket images
+const showImages = ref(false)
+
+const setRocket = (i) => {
+    showImages.value = false //hide images for next rocket by default
+
+    //hide rocket display
+    toggle.value = false
+
+    //assign to selected rocket to activeRocket
+    activeRocket.value = rockets.value[i]
+
+    //and then show rocket display
+    setTimeout(() => toggle.value = true, 600)
+}
+
+onBeforeMount( async() => {
+    await axios.get("https://api.spacexdata.com/v4/rockets")
+    .then((res) => {
+        //collect only needed data from api then push to rockets state
+        res.data.forEach((rkt, index) => {
+            rockets.value.push({
+                name:         rkt.name,
+                id:           rkt.id,
+                index:        index,
+                first_flight: moment(rkt.first_flight).format('MMM Do, YYYY'),
+                description:  rkt.description,
+                picture:      '/img/rockets/'+rkt.name.replace(' ', '_')+'.png',
+                images:       rkt.flickr_images.slice(0, 4),
+                cost:         rkt.cost_per_launch.toLocaleString(),
+                height_m:     rkt.height.meters.toLocaleString(),
+                height_f:     rkt.height.feet.toLocaleString(),
+                diameter_m:   rkt.diameter.meters.toLocaleString(),
+                diameter_f:   rkt.diameter.feet.toLocaleString(),
+                mass_kg:      rkt.mass.kg.toLocaleString(),
+                mass_lb:      rkt.mass.lb.toLocaleString(),
+                wikipedia:    rkt.wikipedia
+            })
+        })
+
+        //set a default activeRocket to display
+        activeRocket.value = rockets.value[1]
+    })
+    .catch((er) => {
+        //toggle error state
+        store.commit('error', true)
+    })
+})
+</script>
+
 <template>
     <div class="max-w-xl mx-auto mb-20 px-2 sm:px-3 mt-2 md:mt-11 bg-rd-300" v-if="rockets.length">
 
@@ -24,8 +93,8 @@
                         <div class="border-r border-white/75 text-center text-white/[.80] text-sm pr-1 -mt-5 h-72" style="writing-mode: vertical-lr;">
                             Height: {{activeRocket.height_m}}m
                         </div>
-                        <div>
-                            <img :src="activeRocket.picture" :alt="activeRocket.name" class="h-96 ml-3 max-w-none">
+                        <div class="text-center">
+                            <img :src="activeRocket.picture" :alt="activeRocket.name" class="h-96 sm:ml-3 inline-block max-w-none">
                             <div class="border-t border-white/75 text-center text-white/[.80] text-sm pb-1 mt-2">
                                 Diameter: {{activeRocket.diameter_m}}m
                             </div>
@@ -34,7 +103,7 @@
                 </div>
 
                 <div class="sm:ml-4 mt-2 sm:mt-none">
-                    <div class="text-white/95 opacity-90 text-2xl font-semibold opacity-90">{{activeRocket.name}}</div>
+                    <div class="text-white/95 opacity-90 text-2xl font-semibold opacity-90 mb-1">{{activeRocket.name}}</div>
 
                     <div class="text-white/75 text-sm opacity-90">{{activeRocket.description}}</div>
 
@@ -77,70 +146,3 @@
         <div><i class="la la-spinner la-spin text-7xl"></i></div>
     </div>
 </template>
-
-<script setup>
-import RocketImages from './rockets/RocketImages.vue'
-
-import axios from 'axios'
-import moment from 'moment'
-import { onBeforeMount, ref } from 'vue'
-import { useStore } from 'vuex'
-
-const store = useStore()
-
-//state for storing rockets
-const rockets = ref([])
-
-//state for active rocket view by slection
-const activeRocket = ref({})
-
-//state for toggle rocket display/when opening another
-const toggle = ref(true)
-
-//state for toggle show rocket images
-const showImages = ref(false)
-
-const setRocket = (i) => {
-    //hide rocket display
-    toggle.value = false
-
-    //assign to selected rocket to activeRocket
-    activeRocket.value = rockets.value[i]
-
-    //and then show rocket display
-    setTimeout(() => toggle.value = true, 600)
-}
-
-onBeforeMount( async() => {
-    await axios.get("https://api.spacexdata.com/v4/rockets")
-    .then((res) => {
-        //collect only needed data from api and push to rockets state
-        res.data.forEach((rkt, index) => {
-            rockets.value.push({
-                name:         rkt.name,
-                id:           rkt.id,
-                index:        index,
-                first_flight: moment(rkt.first_flight).format('MMM Do, YYYY'),
-                description:  rkt.description,
-                picture:      '/img/rockets/'+rkt.name.replace(' ', '_')+'.png',
-                images:       rkt.flickr_images.slice(0, 4),
-                cost:         rkt.cost_per_launch.toLocaleString(),
-                height_m:     rkt.height.meters.toLocaleString(),
-                height_f:     rkt.height.feet.toLocaleString(),
-                diameter_m:   rkt.diameter.meters.toLocaleString(),
-                diameter_f:   rkt.diameter.feet.toLocaleString(),
-                mass_kg:      rkt.mass.kg.toLocaleString(),
-                mass_lb:      rkt.mass.lb.toLocaleString(),
-                wikipedia:    rkt.wikipedia
-            })
-        })
-
-        //set a default activeRocket to display
-        activeRocket.value = rockets.value[1]
-    })
-    .catch((er) => {
-        //toggle error state
-        store.commit('error', true)
-    })
-})
-</script>
