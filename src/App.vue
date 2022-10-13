@@ -11,9 +11,9 @@ import { useTippy } from "vue-tippy/composition"
 import { useStore } from 'vuex'
 import { onBeforeMount, onMounted, ref } from 'vue'
 
+const store = useStore()
 
 const load = ref(true)
-const store = useStore()
 
 //tooltip tippjs config
 useTippy('.targets', {
@@ -55,7 +55,6 @@ onBeforeMount( async() => {
 onMounted(() => {
   load.value = false
 })
-
 </script>
 
 <template>
@@ -66,10 +65,11 @@ onMounted(() => {
   </div>
   
   <img src="/img/light33.png" class="fixed right-0 top-0 opacity-[.65] w-56 xsm:w-64 sm:w-72 lg:w-96">
+  
   <div
     class="targets text-white/[.30] hover:text-white/90 text-[0.8rem] absolute top-2 xsm:top-3 lg:top-3 right-[45%] xsm:right-[35%] sm:right-[40%] z-10 cursor-pointer"
     @click="$store.state.activeTab !== 4 ? $store.commit('changeTab', 4) : ''"
-    v-if="$store.state.activeTab !== 4"
+    v-if="$store.state.activeTab !== 4 && !$store.state.load"
     data-tippy-content="Watch Planet Rotation"
   >
     <span class="text-lg"><i class="la la-atom"></i></span>

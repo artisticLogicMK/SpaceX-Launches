@@ -154,14 +154,14 @@ onMounted(() => {
                     <div class="text-white/[.40] text-[0.8rem] mb-2">
                         <div
                             class="cursor-pointer inline hover:text-white/90 mr-3"
-                            :class="$store.state.launchView.info.id == launch.next ? 'text-white/90' : ''"
+                            :class="$store.state.launchView.info?.id == launch.next ? 'text-white/90' : ''"
                             @click="changeLaunch(launch.next, 'date', launch.next.nyear)"
                         >
                             Next Launch
                         </div>
                         <div
                             class="cursor-pointer inline hover:text-white/90"
-                            :class="$store.state.launchView.info.id == launch.latest ? 'text-white/90' : ''"
+                            :class="$store.state.launchView.info?.id == launch.latest ? 'text-white/90' : ''"
                             @click="changeLaunch(launch.latest, 'date', launch.lyear)"
                         >
                             Latest Launch
@@ -170,7 +170,7 @@ onMounted(() => {
                     <div
                         class="bg-[url('../../../public/img/default.jpg')] bg-cover bg-center bg-no-repeat w-full h-40 xsm:h-60 sm:h-72 md:w-[24rem] md:h-64 lg:w-[28rem] lg:h-72 rounded-lg overflow-hidden"
                     >
-                        <LaunchImagesSlide :images="launch.info.images"/>
+                        <LaunchImagesSlide :images="launch.info?.images"/>
                     </div>
                 </div>
 

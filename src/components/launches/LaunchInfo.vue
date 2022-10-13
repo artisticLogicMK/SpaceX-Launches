@@ -5,13 +5,13 @@ defineProps({
 </script>
 
 
-<template>
+<template v-if="info?.name">
     <div class="text-[0.8rem] opacity-90 mb-1 md:mb-0">
-        <span class="font-semibold">Flight {{info.flight_no}}. </span>
-        <span class="opacity-75">{{info.date}}</span>
+        <span class="font-semibold">Flight {{info?.flight_no}}. </span>
+        <span class="opacity-75">{{info?.date}}</span>
     </div>
     
-    <div class="text-3xl font-semibold opacity-95">{{info.name}}</div>
+    <div class="text-3xl font-semibold opacity-95">{{info?.name}}</div>
 
     <div class="flex items-center text-sm mbg-1 opacity-95 mb-1 md:mb-0">
         <div class="mr-5">

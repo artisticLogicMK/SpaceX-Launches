@@ -4,7 +4,7 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    //state for main app planets loader
+    //loader state
     load: true,
 
 
@@ -20,7 +20,7 @@ export default createStore({
     //current launch view data
     launchView: {},
 
-    //loading states when another launch is clicked
+    //loading states for launch
     launchload: false,
     spinner: false,
 
@@ -70,19 +70,21 @@ export default createStore({
 
     //commit for changing tabs(Launches, Rockets, About)
     changeTab(state, tab) {
-      //the code below transitions into a new tab with fade in/out effect
-      document.getElementById('tabdisplay').classList.remove('opacity-100')
-      document.getElementById('tabdisplay').classList.add('opacity-0')
+      //transition into a new tab with fade in/out effect
+      let tabs = document.getElementById('tabdisplay')
+      tabs.classList.remove('opacity-100')
+      tabs.classList.add('opacity-0')
       setTimeout(() => {
         state.activeTab = 0
         setTimeout(() => {
           state.activeTab = tab
-          document.getElementById('tabdisplay').classList.add('opacity-100')
+          tabs.classList.remove('opacity-0')
+          tabs.classList.add('opacity-100')
         }, 200)
       }, 200)
     },
 
-    //state commit for loaders in launch component
+    //commit for loaders in launch component
     setLaunchload(state, bool) {
       state.launchload = bool
     },
