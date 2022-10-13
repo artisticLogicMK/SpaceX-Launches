@@ -54,13 +54,16 @@ const options = {
   >
     <SplideSlide
       class="targets h-72 md:h-64 lg:h-72 rounded-lg bg-contain bg-center cursor-zoom-out" 
-      v-for="image in $store.state.launchView.images" :key="image"
+      v-for="image in images"
+      :key="image"
       data-tippy-content="Click to Zoom"
       @click="popImage(image)"
     >
       <img :src="image" clss="h-24">
     </SplideSlide>
   </Splide>
+
+
   <Transition
     enter-active-class="animate__animated animate__zoomIn animate__faster"
     leave-active-class="animate__animated animate__zoomOut animate__faster"

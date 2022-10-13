@@ -102,7 +102,7 @@ onMounted(() => {
     window.addEventListener("load", () => {
         let time = 3000
         if(sessionStorage.getItem("opened") === null) {
-            time = 6000
+            time = 5000
         }
 
         setTimeout(() => {
