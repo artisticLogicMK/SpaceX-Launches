@@ -100,9 +100,9 @@ onMounted(() => {
     
     //if component loaded
     window.addEventListener("load", () => {
-        let time = 3000
+        let time = 2000
         if(sessionStorage.getItem("opened") === null) {
-            time = 5000
+            time = 4000
         }
 
         setTimeout(() => {
