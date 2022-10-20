@@ -84,6 +84,7 @@ onBeforeMount( async() => {
             </div>
 
             <div class="text-white/90 text-sm mt-3">App Created by <a href="https://artisticlogicmk.one" class="underline">MK (artisticlogicmk.one)</a></div>
+            <div class="text-white/90 text-sm mt-1">See the code at Github: <a href="https://github.com/artisticLogicMK/SpaceX-Launches" class="underline">artisticLogicMK/SpaceX-Launches</a></div>
             <div class="text-white/90 text-sm mt-1">API data from <a href="https://github.com/r-spacex/SpaceX-API" class="underline">github.com/r-spacex/SpaceX-API</a></div>
         </div>
 
