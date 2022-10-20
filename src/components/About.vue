@@ -83,9 +83,9 @@ onBeforeMount( async() => {
                 <div class="inline"><a :href="about.links.twitter" target="_blank"><i class="la la-twitter"></i> {{about.links.twitter}}</a></div>
             </div>
 
-            <div class="text-white/90 text-sm mt-3">App Created by <a href="https://artisticlogicmk.one" class="underline">MK (artisticlogicmk.one)</a></div>
-            <div class="text-white/90 text-sm mt-1">See the code at Github: <a href="https://github.com/artisticLogicMK/SpaceX-Launches" class="underline">artisticLogicMK/SpaceX-Launches</a></div>
-            <div class="text-white/90 text-sm mt-1">API data from <a href="https://github.com/r-spacex/SpaceX-API" class="underline">github.com/r-spacex/SpaceX-API</a></div>
+            <div class="text-white/90 text-sm mt-3">App Created by <a href="https://artisticlogicmk.one" target="_blank" class="underline">MK (artisticlogicmk.one)</a></div>
+            <div class="text-white/90 text-sm mt-1">See the code at Github: <a href="https://github.com/artisticLogicMK/SpaceX-Launches" target="_blank" class="underline">artisticLogicMK/SpaceX-Launches</a></div>
+            <div class="text-white/90 text-sm mt-1">API data from <a href="https://github.com/r-spacex/SpaceX-API" target="_blank" class="underline">github.com/r-spacex/SpaceX-API</a></div>
         </div>
 
     </div>
