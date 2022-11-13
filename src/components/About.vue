@@ -54,6 +54,7 @@ onBeforeMount( async() => {
                 </div>
             </div>
 
+
             <div class="flex flex-wrap mt-3">
                 <div class="text-sm mr-4 mt-1 text-center">
                     <span class="text-white/50"><i class="la la-users"></i> Employees</span><br/>
@@ -73,14 +74,19 @@ onBeforeMount( async() => {
                 </div>
             </div>
 
+
             <div class="text-white/50 text-sm mt-3">Address</div>
             <div class="text-white/90 text-sm" v-if="about.headquarters">
                 <i class="la la-map-marker"></i> 
                 {{about.headquarters.address}}, {{about.headquarters.city}}, {{about.headquarters.state}}.
             </div>
             <div class="flex flex-wrap justify-start text-white/90 text-sm" v-if="about.links">
-                <div class="inline mr-3"><a :href="about.links.website" target="_blank"><i class="la la-globe"></i> {{about.links.website}}</a></div>
-                <div class="inline"><a :href="about.links.twitter" target="_blank"><i class="la la-twitter"></i> {{about.links.twitter}}</a></div>
+                <div class="inline mr-3">
+                    <a :href="about.links.website" target="_blank"><i class="la la-globe"></i> {{about.links.website}}</a>
+                </div>
+                <div class="inline">
+                    <a :href="about.links.twitter" target="_blank"><i class="la la-twitter"></i> {{about.links.twitter}}</a>
+                </div>
             </div>
 
             <div class="text-white/90 text-sm mt-3">App Created by <a href="https://artisticlogicmk.one" target="_blank" class="underline">MK (artisticlogicmk.one)</a></div>

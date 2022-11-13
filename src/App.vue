@@ -33,18 +33,18 @@ onBeforeMount( async() => {
     //get needed data from result
     sorted.forEach(el => {
       store.commit('pushLaunchData', {
-        id: el.id,
-        name: el.name,
+        id:        el.id,
+        name:      el.name,
         flight_no: el.flight_number,
-        date: moment(el.date_utc).format('MMM Do, YYYY'),
-        year: Number(moment(el.date_utc).format('YYYY')),
-        month: moment(el.date_utc).format('MMM'),
-        day: moment(el.date_utc).format('DD')
+        date:      moment(el.date_utc).format('MMM Do, YYYY'),
+        year:      Number(moment(el.date_utc).format('YYYY')),
+        month:     moment(el.date_utc).format('MMM'),
+        day:       moment(el.date_utc).format('DD')
       })
     })
   })
 
-  //fetch latest launch data to populate in default launch data
+  //fetch latest launch data to populate as the initial launch view
   await axios.get("https://api.spacexdata.com/v4/launches/latest")
   .then((res) => {
     store.dispatch('setLaunchView', res.data)

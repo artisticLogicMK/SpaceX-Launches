@@ -45,8 +45,3 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-<br>
-Feel free to fork and contribute to this repository.
-
-Reach me at <a href="mailto:mk.artisticlogic@gmail.com" target="_blank">mk.artisticlogic@gmail.com</a>

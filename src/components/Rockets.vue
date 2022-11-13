@@ -11,7 +11,7 @@ const store = useStore()
 //state for storing rockets
 const rockets = ref([])
 
-//state for active rocket view by slection
+//state for active rocket view by selection
 const activeRocket = ref({})
 
 //state for toggle rocket display/when opening another
@@ -33,7 +33,7 @@ const setRocket = (i) => {
     setTimeout(() => toggle.value = true, 600)
 }
 
-onBeforeMount( async() => {
+onBeforeMount(async () => {
     await axios.get("https://api.spacexdata.com/v4/rockets")
     .then((res) => {
         //collect only needed data from api then push to rockets state
@@ -68,7 +68,10 @@ onBeforeMount( async() => {
 </script>
 
 <template>
-    <div class="max-w-xl mx-auto mb-20 px-2 sm:px-3 mt-2 md:mt-11 bg-rd-300" v-if="rockets.length">
+    <div
+        class="max-w-xl mx-auto mb-20 px-2 sm:px-3 mt-2 md:mt-11 bg-rd-300"
+        v-if="rockets.length"
+    >
 
         <div class="flex flex-wrap justify-center text-sm mb-3 relative">
             <div
@@ -122,14 +125,20 @@ onBeforeMount( async() => {
                         </div>
                     </div>
 
-                    <div class="text-white/95 text-sm mt-3 mb-1 cursor-pointer opacity-90" @click="showImages = !showImages">
+                    <div
+                        class="text-white/95 text-sm mt-3 mb-1 cursor-pointer opacity-90"
+                        @click="showImages = !showImages"
+                    >
                         <i class="la la-image"></i> 
                         View {{activeRocket.name}} Pictures 
                         <i :class="showImages ? 'la la-angle-up' : 'la la-angle-down'"></i>
                     </div>
 
                     <div>
-                        <RocketImages v-if="showImages" :images="activeRocket.images"/>
+                        <RocketImages
+                            v-if="showImages"
+                            :images="activeRocket.images"
+                        />
                     </div>
 
                     <div class="text-white/95 text-sm mt-3 mb-1 opacity-90" v-if="activeRocket.wikipedia">

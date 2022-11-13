@@ -29,8 +29,7 @@ export default createStore({
   },
   
   
-  getters: {
-  },
+  getters: {},
   
 
   mutations: {
@@ -102,11 +101,11 @@ export default createStore({
       let next
       let latest
       
-      if(data.rocket) {
+      if (data.rocket) {
         rocketData = await axios.get("https://api.spacexdata.com/v4/rockets/"+data.rocket)
       }
 
-      if(data.payloads.length !== 0) {
+      if (data.payloads.length !== 0) {
         payloadData = await axios.get("https://api.spacexdata.com/v4/payloads/"+data.payloads[0])
       }
 
@@ -154,9 +153,9 @@ export default createStore({
 
         //latest and next launch select presets
         latest: latest.data.id,
-        lyear: Number(moment(latest.data.date_utc).format('YYYY')),
-        next: next.data.id,
-        nyear: Number(moment(next.data.date_utc).format('YYYY'))
+        lyear:  Number(moment(latest.data.date_utc).format('YYYY')),
+        next:   next.data.id,
+        nyear:  Number(moment(next.data.date_utc).format('YYYY'))
       }
 
       //set object to state
@@ -164,6 +163,5 @@ export default createStore({
     }
   },
    
-  modules: {
-  }
+  modules: {}
 })

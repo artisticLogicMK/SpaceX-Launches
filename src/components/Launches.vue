@@ -39,9 +39,12 @@ const scrollDate = (direction) => {
 
 
 const reset = () => {
+    //set dates container to start position
     document.querySelector('#dates').scrollLeft = 0
 }
 
+
+//change launch action
 const changeLaunch = async(id, from, year) => {
     //make dates unclickable until launch is loaded
     document.getElementById("clickables").classList.add('pointer-events-none')
@@ -68,6 +71,7 @@ const changeLaunch = async(id, from, year) => {
         setTimeout(() => {
             store.commit('setLaunchload', true)
             store.commit('setSpinner', false)
+
             //make dates clickable
             document.getElementById("clickables").classList.remove('pointer-events-none')
         }, 2000)
@@ -75,6 +79,7 @@ const changeLaunch = async(id, from, year) => {
     .catch((er) => {
         //make dates clickable
         document.getElementById("clickables").classList.remove('pointer-events-none')
+
         //toggle error state
         store.commit('error', true)
     })
@@ -98,7 +103,7 @@ onMounted(() => {
     //try it
     bringDate()
     
-    //if component loaded
+    //if document loaded
     window.addEventListener("load", () => {
         let time = 2000
         if(sessionStorage.getItem("opened") === null) {
@@ -149,7 +154,10 @@ onMounted(() => {
             enter-active-class="animate__animated animate__zoomInDown"
             leave-active-class="animate__animated animate__zoomOutUp"
         >
-            <div id="lhold" class="md:flex justify-center items-center" v-if="$store.state.launchload">
+            <div
+                id="lhold" class="md:flex justify-center items-center"
+                v-if="$store.state.launchload"
+            >
                 <div>
                     <div class="text-white/[.40] text-[0.8rem] mb-2">
                         <div
@@ -231,7 +239,9 @@ onMounted(() => {
                         >
                             <div class="text-xs font-bold leading-tight">{{date.day}}</div>
                             <div class="text-xs leading-tight">{{date.month}}</div>
-                            <div class="text-sm leading-tight"><i class="la la-dot-circle" :class="$store.state.launchView.info?.date == date.date ? 'la-pulse' : ''"></i></div>
+                            <div class="text-sm leading-tight">
+                                <i class="la la-dot-circle" :class="$store.state.launchView.info?.date == date.date ? 'la-pulse' : ''"></i>
+                            </div>
                         </div>
 
                         <div v-if="dates && !dates.length" class="opacity-50">
