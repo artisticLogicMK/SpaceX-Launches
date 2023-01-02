@@ -8,7 +8,7 @@ SpaceX Launches is an app that allows users to keep track of current, upcoming, 
 
 
 <br>
-<h3 align="center">
+<h4 align="center">
 
 Made with <br>
 ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
@@ -17,7 +17,7 @@ Made with <br>
 </h3>
 <br>
 
-<h3>
+<h4>
 <strong>Links</strong>
 
 <a href="https://spacex-launchesx.netlify.app" target="_blank">View the app in action.</a>
