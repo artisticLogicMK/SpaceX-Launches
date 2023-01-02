@@ -7,7 +7,6 @@ export default createStore({
     //loader state
     load: true,
 
-
     //error state
     error: false,
 
