@@ -105,10 +105,7 @@ onMounted(() => {
     
     //if document loaded
     window.addEventListener("load", () => {
-        let time = 2000
-        if(sessionStorage.getItem("opened") === null) {
-            time = 4000
-        }
+        let time = sessionStorage.getItem("opened") === null ? 4000 : 2000
 
         setTimeout(() => {
             //toggle loading states
